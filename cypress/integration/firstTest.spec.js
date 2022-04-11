@@ -5,10 +5,10 @@ describe('Test with backend', () => {
     })
 
     it('Verify post request', () => {
-        cy.intercept('POST', '**/articles').as('postArticles')
+        cy.intercept('POST', '**/api.realworld.io/api/articles').as('postArticles')
 
         cy.contains('New Article').click()
-        cy.get('[formcontrolname="title"]').type('This is a title')
+        cy.get('[formcontrolname="title"]').type('This is a Unique title')
         cy.get('[formcontrolname="description"]').type('This is a description')
         cy.get('[formcontrolname="body"]').type('This is a body')
         cy.contains('Publish Article').click()
@@ -20,6 +20,10 @@ describe('Test with backend', () => {
             expect(xhr.request.body.article.body).to.equal('This is a body')
             expect(xhr.response.body.article.description).to.equal('This is a description')
         })
+
+        //Delete the article
+        cy.get('.article-meta').first().click()
+        cy.get('.article-actions').contains('Delete Article').click()
     })
 
     it('tags', () => {
@@ -46,7 +50,7 @@ describe('Test with backend', () => {
             .should('contain', '6')
     })
 
-    it('Intercepting and modifying the request & response', () => {
+    it.skip('Intercepting and modifying the request & response', () => {
         // cy.intercept('POST', '**/articles', (req) => {
         //     req.body.article.description = "This is a description 2"
         // }).as('postArticles')
