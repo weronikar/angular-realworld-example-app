@@ -73,4 +73,51 @@ describe('Test with backend', () => {
         })
     })
 
+    it.only('delete a new article with UI', () => {
+
+        const userCredentials = {
+            "user": {
+                "email": "weronika@test.com",
+                "password": "weronika"
+            }
+        }
+
+        const bodyReq = {
+            "article": {
+                "title": "Request from API",
+                "description": "API testing",
+                "body": "Angular is cool",
+            }
+        }
+
+        cy.request('POST', 'https://conduit.productionready.io/api/users/login', userCredentials)
+            .its('body').then(body => {
+                const token = body.user.token
+
+                cy.request({
+                    url: 'https://conduit.productionready.io/api/articles/',
+                    headers: { 'Authorization': 'Token ' + token },
+                    method: 'POST',
+                    body: bodyReq
+                }).then(response => {
+                    expect(response.status).to.equal(200)
+                })
+
+                cy.contains('Global Feed').click()
+                cy.get('.article-preview').first().click()
+                cy.get('.article-actions').contains('Delete Article').click()
+
+                cy.wait(500) //Added delay to leave time to delete article.
+                cy.request({
+                    url: "https://conduit.productionready.io/api/articles?limit=10&offset=0",
+                    headers: { 'Authorization': 'Token ' + token },
+                    method: 'GET',
+                }).its('body').then(body => {
+                    expect(body.articles[0].title).not.to.equal('Request from API')
+                })
+
+            })
+
+
+    })
 })
