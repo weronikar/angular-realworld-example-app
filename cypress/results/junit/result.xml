@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<testsuites>
+<testsuite name="Root Suite" timestamp="2022-08-24T05:12:07" tests="0" file="cypress/integration/secondTest.spec.js" time="0.0000" failures="0"></testsuite>
+<testsuite name="Test log out" timestamp="2022-08-24T05:12:07" tests="1" time="18.6500" failures="1">
+  
+  <testcase name="Test log out verify user can log out successfully" time="6.1580" classname="verify user can log out successfully">
+    
+    <failure message="Timed out retrying after 4000ms: expected &apos;&lt;ul.nav.navbar-nav.pull-xs-right&gt;&apos; to contain &apos;Sign up1&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 4000ms: expected '<ul.nav.navbar-nav.pull-xs-right>' to contain 'Sign up1'
+    at Context.eval (http://localhost:4200/__cypress/tests?p=cypress/integration/secondTest.spec.js:106:27)]]></failure>
+    
+  </testcase>
+  
+</testsuite>
+
+<testsuite name="Root Suite" timestamp="2022-08-24T05:11:50" tests="0" file="cypress/integration/firstTest.spec.js" time="0.0000" failures="0"></testsuite>
+<testsuite name="Test with backend" timestamp="2022-08-24T05:11:50" tests="5" time="14.3570" failures="0">
+  
+  <testcase name="Test with backend Verify post request" time="7.0930" classname="Verify post request"></testcase>
+  
+  <testcase name="Test with backend tags" time="2.0400" classname="tags"></testcase>
+  
+  <testcase name="Test with backend articles" time="1.3100" classname="articles"></testcase>
+  
+  <testcase name="Test with backend delete a new article with UI" time="3.9160" classname="delete a new article with UI"></testcase>
+  
+</testsuite>
+
+</testsuites>
