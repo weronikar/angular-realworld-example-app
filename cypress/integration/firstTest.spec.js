@@ -1,3 +1,18 @@
+const { createJSDocTypeExpression } = require("typescript")
+
+
+const runOn = (browser, fn) => {
+    if (Cypress.isBrowser(browser)) {
+        fn()
+    }
+}
+
+const ignoreOn = (browser, fn) => {
+    if (!Cypress.isBrowser(browser)) {
+        fn()
+    }
+}
+
 describe('Test with backend', () => {
     beforeEach('login to the app', () => {
         cy.intercept({ method: 'Get', path: 'tags' }, { fixture: 'tags.json' })
@@ -26,10 +41,12 @@ describe('Test with backend', () => {
         cy.get('.article-actions').contains('Delete Article').click()
     })
 
-    it('tags', () => {
-        cy.get('.tag-list').should('contain', 'cypress')
-            .and('contain', 'automation')
-            .and('contain', 'testing')
+    ignoreOn('electron', () => {
+        it('tags', () => {
+            cy.get('.tag-list').should('contain', 'cypress')
+                .and('contain', 'automation')
+                .and('contain', 'testing')
+        })
     })
 
     it('articles', () => {
